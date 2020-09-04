@@ -7,7 +7,7 @@ HOME_URL = 'https://www.larepublica.co'
 
 # Xpath of elements in Web "La República"
 XPATH_LINK_TO_ARTICLE = '//h2/a/@href'
-XPATH_TITLE = '//div[@class="row OpeningPostNormal"]/div/div/h2/a/text()'
+XPATH_TITLE = '//div[@class="mb-auto"]/text-fill/a/text()'
 XPATH_SUMMARY = '//div[@class="lead"]/p/text()'
 XPATH_BODY = '//div[@class="html-content"]/p[not(@class)]/text()'
 
@@ -52,6 +52,7 @@ def parse_home():
             home = response.content.decode('utf-8')                 # Obtains HTML-file and decodes characters
             parsed = html.fromstring(home)                          # Parsing HTML-file to could apply xpath
             links_to_notices = parsed.xpath(XPATH_LINK_TO_ARTICLE)  # Obtaing News-links
+            links_to_notices.remove('')                             # Delete empty elments
             #print(links_to_notices)
             
             today = datetime.date.today().strftime('%d-%m-%Y')
